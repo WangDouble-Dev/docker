@@ -1,0 +1,21 @@
+services:
+  nginx:
+    build: ./nginx
+    hostname: api
+    ports:
+      - "8080:80"
+    links:
+      - "php"
+    volumes:
+      - ~/code/www/:/usr/share/nginx/html/
+  php:
+    build: ./php
+    links:
+      - "mysql-server"
+    volumes:
+      - ~/code/www/:/usr/share/nginx/html/
+  mysql-server:
+    build: ./mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+
